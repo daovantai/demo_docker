@@ -1,0 +1,34 @@
+version: '3.8'
+#containers => services
+services:
+  mysql-springboot-container:
+    image: mysql:8.0.28
+    container_name: mysql-tai
+    ports:
+      - 3307:3306
+    volumes:
+      - mysql-springboot-data:/var/lib/mysql
+      - mysql-springboot-config-deamond:/etc/mysql/conf.d
+    networks:
+      - backend
+    environment:
+      MYSQL_USER: 123
+      MYSQL_PASSWORD: 123
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: product
+  springboot-docker-container:
+    image: daotai/demodocker-spring:v1.0.0
+    container_name: TAI-TDA
+    ports:
+      - 8083:8080
+    volumes:
+      - ./:/app
+    networks:
+      - backend
+#create network
+networks:
+  backend:
+    name: Manh-network
+volumes:
+  mysql-springboot-data:
+  mysql-springboot-config-deamond:
